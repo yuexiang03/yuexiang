@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>月相塔罗 · Lunar Phase Tarot｜Aurora 的塔罗解读</title>
+<meta name="description" content="塔罗解读师 Aurora，提供关系、事业与综合深度解读。在线预约时段，陪你听见内心的答案。" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230C0716'/%3E%3Cpath d='M32 10l4.5 14.5L51 29l-14.5 4.5L32 48l-4.5-14.5L13 29l14.5-4.5z' fill='%23D9B98C'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+--ink:#08040F;
+--bg:#0C0716;
+--bg-soft:#130B22;
+--panel:#170E28;
+--violet:#7C5CD6;
+--violet-soft:#A48BE8;
+--gold:#D9B98C;
+--gold-soft:#F1DFC0;
+--text:#EDE7F7;
+--muted:#A79BC0;
+--line:rgba(217,185,140,.16);
+--line-soft:rgba(237,231,247,.08);
+--serif:"Cormorant Garamond","Noto Serif SC","Songti SC","STSong",serif;
+--sans:"Noto Serif SC","Songti SC",system-ui,-apple-system,"PingFang SC",sans-serif;
+--ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+margin:0;
+background:var(--bg);
+color:var(--text);
+font-family:var(--sans);
+font-weight:300;
+line-height:1.75;
+overflow-x:hidden;
+-webkit-font-smoothing:antialiased;
+}
+body::before{
+content:"";
+position:fixed;inset:0;z-index:-2;
+background:
+radial-gradient(900px 600px at 78% -8%, rgba(124,92,214,.26), transparent 62%),
+radial-gradient(720px 520px at 8% 22%, rgba(83,42,140,.22), transparent 60%),
+radial-gradient(1000px 700px at 50% 112%, rgba(96,54,150,.20), transparent 65%),
+linear-gradient(180deg,#0A0513 0%, #0C0716 40%, #0B0614 100%);
+}
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:.75;}
+.grain{
+position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.035;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;color:inherit;cursor:pointer;}
+::selection{background:rgba(217,185,140,.28);color:#fff;}
+img{max-width:100%;display:block;}
+ 
+.wrap{width:min(1180px,calc(100% - 48px));margin-inline:auto;}
+ 
+/* ---------- Nav ---------- */
+.nav{
+position:fixed;top:0;left:0;right:0;z-index:50;
+display:flex;align-items:center;justify-content:space-between;
+padding:22px clamp(20px,4vw,52px);
+transition:.5s var(--ease);
+}
+.nav.scrolled{
+padding-block:14px;
+background:rgba(11,6,20,.72);
+backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+border-bottom:1px solid var(--line-soft);
+}
+.brand{display:flex;align-items:center;gap:11px;letter-spacing:.16em;font-size:14px;}
+.brand-mark{
+width:30px;height:30px;flex:none;display:grid;place-items:center;
+border:1px solid var(--line);border-radius:50%;
+color:var(--gold);font-size:13px;
+box-shadow:0 0 24px rgba(217,185,140,.12) inset;
+}
+.brand b{font-weight:500;color:var(--gold-soft);}
+.brand span{color:var(--muted);font-size:10px;letter-spacing:.28em;}
+.nav-links{display:flex;align-items:center;gap:34px;font-size:13px;letter-spacing:.1em;}
+.nav-links a{color:var(--muted);transition:color .3s;}
+.nav-links a:hover{color:var(--gold-soft);}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.btn{
+display:inline-flex;align-items:center;justify-content:center;gap:10px;
+padding:14px 30px;border-radius:2px;border:1px solid transparent;
+font-size:13px;letter-spacing:.14em;font-weight:400;
+transition:.4s var(--ease);white-space:nowrap;
+}
+.btn-gold{
+background:linear-gradient(135deg,#EAD3AE,#D3AE78 55%,#C49C66);
+color:#1A1024;
+box-shadow:0 12px 34px rgba(196,156,102,.20);
+}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(196,156,102,.32);}
+.btn-ghost{border-color:var(--line);color:var(--text);background:rgba(255,255,255,.02);}
+.btn-ghost:hover{border-color:rgba(217,185,140,.5);color:var(--gold-soft);background:rgba(217,185,140,.06);}
+.nav .btn-ghost{padding:11px 22px;}
+.burger{
+display:none;width:42px;height:42px;background:none;border:1px solid var(--line);
+border-radius:2px;position:relative;
+}
+.burger i{
+position:absolute;left:11px;right:11px;height:1px;background:var(--gold-soft);
+transition:.4s var(--ease);
+}
+.burger i:nth-child(1){top:16px;}
+.burger i:nth-child(2){bottom:16px;}
+.nav-links.open ~ .nav-right .burger i:nth-child(1){transform:translateY(4px) rotate(45deg);}
+.nav-links.open ~ .nav-right .burger i:nth-child(2){transform:translateY(-5px) rotate(-45deg);}
+ 
+/* ---------- Hero ---------- */
+.hero{
+position:relative;
+min-height:100svh;
+display:flex;align-items:center;
+padding:150px 0 90px;
+overflow:hidden;
+}
+.hero .wrap{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(40px,6vw,76px);align-items:center;}
+.hero-copy{min-width:0;}
+.eyebrow{
+display:flex;align-items:center;gap:14px;
+font-size:11px;letter-spacing:.34em;color:var(--gold);
+margin-bottom:30px;text-transform:uppercase;
+}
+.eyebrow::before{content:"";width:42px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));}
+.eyebrow .star{color:var(--gold);font-size:9px;letter-spacing:0;}
+.hero h1{
+font-family:var(--serif);
+font-size:clamp(40px,4.9vw,72px);
+font-weight:400;line-height:1.18;letter-spacing:.01em;
+margin:0 0 30px;max-width:10.5em;
+}
+.hero h1 em{
+font-style:normal;
+background:linear-gradient(120deg,#F5E7CB 10%,#D9B98C 45%,#B78F5C 90%);
+-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p.lead{max-width:480px;color:var(--muted);font-size:15px;line-height:2;margin:0 0 42px;}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+.hero-stats{
+display:flex;gap:clamp(26px,4vw,56px);
+margin-top:64px;padding-top:30px;border-top:1px solid var(--line-soft);
+}
+.hero-stats div b{
+display:block;font-family:var(--serif);font-size:30px;font-weight:400;color:var(--gold-soft);
+letter-spacing:.02em;line-height:1.2;
+}
+.hero-stats div span{font-size:11px;letter-spacing:.16em;color:var(--muted);}
+ 
+.hero-visual{position:relative;height:560px;min-width:0;display:grid;place-items:center;perspective:1200px;}
+.halo{
+position:absolute;width:430px;height:430px;border-radius:50%;
+background:radial-gradient(circle,rgba(124,92,214,.34),rgba(124,92,214,0) 66%);
+filter:blur(14px);
+animation:breathe 7s ease-in-out infinite;
+}
+.halo::after{
+content:"";position:absolute;inset:40px;border-radius:50%;
+border:1px solid rgba(217,185,140,.22);
+}
+.deck{position:relative;width:250px;height:410px;transform-style:preserve-3d;transition:transform .6s var(--ease);}
+.tcard{
+position:absolute;inset:0;border-radius:12px;
+border:1px solid rgba(217,185,140,.34);
+background:
+radial-gradient(120% 80% at 50% 0%, rgba(124,92,214,.45), transparent 60%),
+linear-gradient(165deg,#1B0F30,#0E0720 70%);
+box-shadow:0 30px 70px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.03);
+display:grid;place-items:center;
+overflow:hidden;
+}
+.tcard::before{
+content:"";position:absolute;inset:12px;border:1px solid rgba(217,185,140,.28);border-radius:6px;
+}
+.tcard::after{
+content:"";position:absolute;inset:0;
+background:radial-gradient(circle at 50% 42%, rgba(217,185,140,.14), transparent 58%);
+}
+.tcard .sym{
+position:relative;z-index:1;text-align:center;color:var(--gold-soft);
+}
+.tcard .sym svg{display:block;margin:0 auto 20px;color:var(--gold);filter:drop-shadow(0 0 16px rgba(217,185,140,.45));}
+.tcard .sym small{font-family:var(--serif);font-size:11px;letter-spacing:.42em;color:rgba(241,223,192,.62);}
+.i-star{display:inline-block;fill:currentColor;vertical-align:middle;}
+.tcard:nth-child(1){transform:translateX(-74px) rotate(-13deg) scale(.94);animation:floatA 9s ease-in-out infinite;}
+.tcard:nth-child(2){transform:translateY(-18px) rotate(-1deg);z-index:2;animation:floatB 8s ease-in-out infinite;}
+.tcard:nth-child(3){transform:translateX(74px) rotate(12deg) scale(.94);animation:floatC 10s ease-in-out infinite;}
+.deck:hover .tcard:nth-child(1){transform:translateX(-118px) rotate(-19deg) scale(.94);}
+.deck:hover .tcard:nth-child(3){transform:translateX(118px) rotate(18deg) scale(.94);}
+@keyframes floatA{0%,100%{translate:0 0}50%{translate:0 -14px}}
+@keyframes floatB{0%,100%{translate:0 0}50%{translate:0 -20px}}
+@keyframes floatC{0%,100%{translate:0 0}50%{translate:0 -10px}}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.07);opacity:1}}
+.deck-caption{
+position:absolute;bottom:6px;left:50%;translate:-50% 0;
+font-family:var(--serif);font-size:11px;letter-spacing:.4em;color:rgba(167,155,192,.7);
+white-space:nowrap;
+}
+ 
+/* ---------- Sections ---------- */
+section{position:relative;padding:120px 0;}
+.sec-head{max-width:640px;margin-bottom:64px;}
+.sec-head.center{margin-inline:auto;text-align:center;}
+.sec-label{
+font-size:11px;letter-spacing:.34em;color:var(--gold);text-transform:uppercase;
+display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.sec-head.center .sec-label{justify-content:center;}
+.sec-label::before{content:"";width:26px;height:1px;background:var(--gold);opacity:.7;}
+.sec-head.center .sec-label::before{display:none;}
+.sec-head.center .sec-label::after{content:"";width:26px;height:1px;background:var(--gold);opacity:.7;}
+h2{
+font-family:var(--serif);font-weight:400;
+font-size:clamp(32px,4vw,50px);line-height:1.25;margin:0 0 20px;letter-spacing:.01em;
+}
+.sec-head p{color:var(--muted);font-size:14.5px;margin:0;line-height:2;}
+ 
+/* About */
+.about-grid{display:grid;grid-template-columns:.86fr 1.14fr;gap:clamp(32px,6vw,90px);align-items:center;}
+.about-photo{position:relative;}
+.about-photo .frame{
+position:absolute;inset:22px -22px -22px 22px;
+border:1px solid rgba(217,185,140,.32);border-radius:2px;z-index:0;
+}
+.about-photo img{
+position:relative;z-index:1;width:100%;aspect-ratio:4/4.6;object-fit:cover;
+border-radius:2px;filter:saturate(.86) contrast(1.04);
+box-shadow:0 40px 90px rgba(0,0,0,.5);
+}
+.about-photo .photo-tag{
+position:absolute;z-index:2;right:-14px;bottom:36px;
+background:rgba(12,7,22,.86);backdrop-filter:blur(10px);
+border:1px solid var(--line);padding:16px 22px;border-radius:2px;
+font-family:var(--serif);letter-spacing:.18em;font-size:12px;color:var(--gold-soft);
+}
+.about-photo .photo-tag small{display:block;color:var(--muted);font-family:var(--sans);font-size:10px;letter-spacing:.2em;margin-top:4px;}
+.about-text p{color:var(--muted);font-size:14.5px;line-height:2.1;margin:0 0 20px;}
+.about-text p strong{color:var(--text);font-weight:400;}
+.tags{display:flex;flex-wrap:wrap;gap:10px;margin:34px 0 38px;}
+.tags span{
+font-size:11px;letter-spacing:.12em;color:var(--muted);
+border:1px solid var(--line-soft);border-radius:999px;padding:8px 16px;
+transition:.3s;
+}
+.tags span:hover{color:var(--gold-soft);border-color:rgba(217,185,140,.4);}
+.signature{font-family:var(--serif);font-size:30px;font-style:italic;color:var(--gold);letter-spacing:.06em;}
+.signature small{display:block;font-family:var(--sans);font-style:normal;font-size:10px;letter-spacing:.32em;color:var(--muted);margin-top:8px;}
+ 
+/* Photo gallery */
+.gallery{padding-top:0;}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.gallery-item{position:relative;margin:0;overflow:hidden;border:1px solid var(--line-soft);border-radius:3px;background:var(--bg-soft);}
+.gallery-item::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 52%,rgba(8,4,15,.86));}
+.gallery-item img{width:100%;aspect-ratio:4/4.8;object-fit:cover;filter:saturate(.82) contrast(1.04);transition:transform 1s var(--ease),filter .6s;}
+.gallery-item:hover img{transform:scale(1.045);filter:saturate(1) contrast(1.04);}
+.gallery-item figcaption{position:absolute;z-index:1;left:24px;right:24px;bottom:22px;font-size:12.5px;color:var(--text);letter-spacing:.06em;line-height:1.7;}
+.gallery-item figcaption span{display:block;font-family:var(--serif);font-size:10px;letter-spacing:.24em;color:var(--gold);margin-bottom:6px;text-transform:uppercase;}
+
+/* Services */
+.services{background:linear-gradient(180deg,transparent,rgba(20,11,36,.55) 22%,rgba(20,11,36,.55) 78%,transparent);}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.svc{
+position:relative;padding:44px 34px 38px;border:1px solid var(--line-soft);
+background:linear-gradient(170deg,rgba(255,255,255,.035),rgba(255,255,255,.01));
+border-radius:3px;transition:.5s var(--ease);overflow:hidden;
+}
+.svc::before{
+content:"";position:absolute;inset:0;opacity:0;transition:.5s;
+background:radial-gradient(420px 220px at 50% 0%,rgba(124,92,214,.24),transparent 70%);
+}
+.svc:hover{transform:translateY(-8px);border-color:rgba(217,185,140,.34);background:linear-gradient(170deg,rgba(255,255,255,.055),rgba(255,255,255,.012));}
+.svc:hover::before{opacity:1;}
+.svc > *{position:relative;z-index:1;}
+.svc-ico{
+width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+border:1px solid rgba(217,185,140,.34);color:var(--gold);font-size:20px;
+margin-bottom:26px;background:rgba(217,185,140,.05);
+}
+.svc-ico svg{display:block;}
+.svc h3{font-family:var(--serif);font-size:26px;font-weight:400;margin:0 0 6px;}
+.svc .dur{font-size:11px;letter-spacing:.22em;color:var(--gold);margin-bottom:18px;}
+.svc p{color:var(--muted);font-size:13.5px;line-height:2;margin:0 0 24px;min-height:84px;}
+.svc ul{list-style:none;margin:0 0 30px;padding:0;border-top:1px solid var(--line-soft);padding-top:20px;}
+.svc li{font-size:12.5px;color:var(--muted);padding-left:18px;position:relative;margin-bottom:9px;}
+.svc li::before{
+content:"";position:absolute;left:0;top:.72em;width:7px;height:7px;
+background:rgba(217,185,140,.8);
+clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);
+}
+.svc .price{display:flex;align-items:flex-end;justify-content:space-between;}
+.svc .price b{font-family:var(--serif);font-size:34px;font-weight:400;color:var(--gold-soft);line-height:1;}
+.svc .price b i{font-style:normal;font-size:15px;margin-right:3px;}
+.svc .price span{font-size:11px;letter-spacing:.14em;color:var(--muted);}
+ 
+/* Daily card */
+.daily .wrap{display:grid;grid-template-columns:1fr .9fr;gap:clamp(40px,7vw,100px);align-items:center;}
+.daily-stage{display:grid;place-items:center;min-height:440px;}
+.card-stage{width:250px;height:400px;perspective:1400px;cursor:pointer;}
+.card-inner{
+position:relative;width:100%;height:100%;transform-style:preserve-3d;
+transition:transform 1s var(--ease);
+}
+.card-stage.flipped .card-inner{transform:rotateY(180deg);}
+.card-face{
+position:absolute;inset:0;border-radius:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+border:1px solid rgba(217,185,140,.4);overflow:hidden;
+display:flex;flex-direction:column;align-items:center;justify-content:center;
+box-shadow:0 30px 70px rgba(0,0,0,.55);
+}
+.card-back{
+background:
+radial-gradient(circle at 50% 42%, rgba(217,185,140,.16), transparent 58%),
+repeating-linear-gradient(45deg, rgba(217,185,140,.06) 0 1px, transparent 1px 11px),
+linear-gradient(160deg,#221239,#0D0620);
+}
+.card-back::before{
+content:"";position:absolute;inset:13px;border:1px solid rgba(217,185,140,.35);border-radius:6px;
+}
+.card-back .sigil{color:var(--gold);line-height:1;filter:drop-shadow(0 0 34px rgba(217,185,140,.5));}
+.card-back .hint{margin-top:24px;font-size:10px;letter-spacing:.34em;color:var(--muted);}
+.card-front{
+transform:rotateY(180deg);
+background:
+radial-gradient(120% 70% at 50% 0%, rgba(124,92,214,.42), transparent 62%),
+linear-gradient(165deg,#1C1031,#0D0720 72%);
+padding:30px 24px;text-align:center;
+}
+.card-front::before{content:"";position:absolute;inset:13px;border:1px solid rgba(217,185,140,.3);border-radius:6px;}
+.card-front .num{font-family:var(--serif);font-size:34px;letter-spacing:.16em;color:var(--gold);margin-bottom:22px;line-height:1;text-indent:.16em;}
+.card-front .glyph{display:none;}
+.card-front h4{font-family:var(--serif);font-size:27px;font-weight:400;margin:0 0 4px;}
+.card-front .en{font-family:var(--serif);font-size:10px;letter-spacing:.3em;color:var(--muted);margin-bottom:20px;text-transform:uppercase;}
+.card-front p{font-size:12.5px;line-height:1.95;color:#CFC3E4;margin:0;}
+.daily-copy p{color:var(--muted);font-size:14.5px;line-height:2.1;margin:0 0 34px;}
+.daily-hint{display:flex;align-items:center;gap:12px;color:rgba(167,155,192,.75);font-size:12px;letter-spacing:.14em;margin-top:26px;}
+.daily-hint svg{color:var(--gold);flex:none;}
+ 
+/* Booking */
+.booking-shell{
+border:1px solid var(--line-soft);border-radius:4px;overflow:hidden;
+background:linear-gradient(175deg,rgba(26,15,45,.9),rgba(13,7,24,.9));
+box-shadow:0 50px 120px rgba(0,0,0,.35);
+}
+.booking-top{
+display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+padding:34px 40px;border-bottom:1px solid var(--line-soft);
+background:radial-gradient(600px 160px at 12% 0%,rgba(124,92,214,.22),transparent 70%);
+}
+.booking-top h3{font-family:var(--serif);font-size:24px;font-weight:400;margin:0;}
+.booking-top .steps{display:flex;gap:26px;flex-wrap:wrap;}
+.booking-top .steps span{font-size:11.5px;letter-spacing:.1em;color:var(--muted);display:flex;align-items:center;gap:8px;}
+.booking-top .steps i{
+font-style:normal;font-family:var(--serif);color:var(--gold);
+width:22px;height:22px;border:1px solid rgba(217,185,140,.35);border-radius:50%;
+display:grid;place-items:center;font-size:11px;
+}
+.booking-body{display:grid;grid-template-columns:1.08fr .92fr;}
+.booking-left{padding:38px 40px;border-right:1px solid var(--line-soft);}
+.b-label{
+font-size:10.5px;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;
+margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;
+}
+.b-label span{color:var(--muted);letter-spacing:.12em;font-size:10.5px;text-transform:none;}
+.date-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;}
+.date-chip{
+flex:0 0 82px;padding:14px 0 12px;border:1px solid var(--line-soft);border-radius:3px;
+background:transparent;text-align:center;transition:.35s var(--ease);
+}
+.date-chip b{display:block;font-size:10px;letter-spacing:.16em;color:var(--muted);font-weight:400;margin-bottom:6px;}
+.date-chip strong{display:block;font-family:var(--serif);font-size:26px;font-weight:400;line-height:1;color:var(--text);}
+.date-chip em{display:block;font-style:normal;font-size:9.5px;letter-spacing:.1em;color:rgba(167,155,192,.6);margin-top:6px;}
+.date-chip:hover{border-color:rgba(217,185,140,.4);}
+.date-chip.active{
+border-color:var(--gold);background:linear-gradient(170deg,rgba(217,185,140,.16),rgba(217,185,140,.04));
+box-shadow:0 0 0 1px rgba(217,185,140,.2) inset;
+}
+.date-chip.active strong{color:var(--gold-soft);}
+.slot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:26px;}
+.slot{
+padding:13px 6px;border:1px solid var(--line-soft);border-radius:3px;background:transparent;
+font-family:var(--serif);font-size:15px;letter-spacing:.04em;color:var(--text);
+transition:.3s var(--ease);position:relative;
+}
+.slot:hover:not(:disabled){border-color:rgba(217,185,140,.5);background:rgba(217,185,140,.07);}
+.slot.active{
+border-color:var(--gold);color:#1A1024;
+background:linear-gradient(135deg,#EAD3AE,#D3AE78);
+box-shadow:0 10px 26px rgba(196,156,102,.22);
+}
+.slot:disabled{color:rgba(167,155,192,.38);cursor:not-allowed;text-decoration:line-through;border-style:dashed;}
+.slot-note{font-size:11px;color:rgba(167,155,192,.6);margin-top:18px;letter-spacing:.06em;}
+.selected-line{
+margin-top:26px;padding:16px 18px;border:1px solid var(--line);border-radius:3px;
+background:rgba(217,185,140,.05);
+font-size:13px;color:var(--gold-soft);display:flex;align-items:center;gap:10px;
+min-height:54px;line-height:1.6;
+}
+.selected-line.empty{color:rgba(167,155,192,.55);border-style:dashed;border-color:var(--line-soft);background:transparent;}
+.booking-right{padding:38px 40px;background:rgba(8,4,15,.28);}
+.field{margin-bottom:20px;}
+.field label{display:block;font-size:11px;letter-spacing:.18em;color:var(--muted);margin-bottom:9px;}
+.field label em{font-style:normal;color:var(--gold);margin-left:3px;}
+.field input,.field select,.field textarea{
+width:100%;padding:13px 16px;border-radius:2px;
+border:1px solid var(--line-soft);background:rgba(255,255,255,.035);
+color:var(--text);font-family:inherit;font-size:13.5px;font-weight:300;
+transition:.3s;outline:none;appearance:none;
+}
+.field select{
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23A79BC0' stroke-width='1.2'/%3E%3C/svg%3E");
+background-repeat:no-repeat;background-position:right 16px center;
+}
+.field select option{background:#150C24;color:var(--text);}
+.field textarea{resize:vertical;min-height:88px;line-height:1.8;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(217,185,140,.55);background:rgba(255,255,255,.055);}
+.field input::placeholder,.field textarea::placeholder{color:rgba(167,155,192,.42);}
+.field .err{display:none;font-size:11px;color:#E696A8;margin-top:6px;letter-spacing:.04em;}
+.field.invalid input,.field.invalid select{border-color:rgba(230,150,168,.6);}
+.field.invalid .err{display:block;}
+.submit-btn{width:100%;margin-top:6px;padding:16px;font-size:13px;letter-spacing:.18em;}
+.form-note{font-size:11px;color:rgba(167,155,192,.55);letter-spacing:.05em;margin:14px 0 0;text-align:center;line-height:1.8;}
+ 
+/* Reviews */
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.rev{
+border:1px solid var(--line-soft);padding:36px 30px;border-radius:3px;
+background:linear-gradient(170deg,rgba(255,255,255,.03),rgba(255,255,255,.008));
+transition:.4s var(--ease);
+}
+.rev:hover{border-color:rgba(217,185,140,.28);transform:translateY(-4px);}
+.rev .q{font-family:var(--serif);font-size:44px;color:rgba(217,185,140,.4);line-height:1;margin-bottom:8px;}
+.rev p{font-size:13.5px;line-height:2.05;color:#C9BEDC;margin:0 0 26px;}
+.rev .who{display:flex;align-items:center;gap:12px;border-top:1px solid var(--line-soft);padding-top:20px;}
+.rev .avatar{
+width:36px;height:36px;border-radius:50%;flex:none;display:grid;place-items:center;
+border:1px solid var(--line);color:var(--gold);font-family:var(--serif);font-size:13px;
+background:rgba(217,185,140,.06);
+}
+.rev .who b{display:block;font-size:12.5px;font-weight:400;color:var(--text);letter-spacing:.05em;}
+.rev .who span{display:block;font-size:10.5px;color:rgba(167,155,192,.65);letter-spacing:.08em;margin-top:2px;}
+.stars-line{color:var(--gold);font-size:11px;letter-spacing:.3em;margin-bottom:18px;}
+ 
+/* Footer */
+footer{border-top:1px solid var(--line-soft);padding:56px 0 40px;background:rgba(6,3,12,.5);}
+.foot-top{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:flex-start;}
+.foot-brand .brand{margin-bottom:18px;}
+.foot-brand p{font-size:12.5px;color:var(--muted);max-width:340px;line-height:2;margin:0;}
+.foot-links{display:flex;gap:56px;flex-wrap:wrap;}
+.foot-col h5{font-size:10.5px;letter-spacing:.26em;color:var(--gold);font-weight:400;margin:0 0 16px;}
+.foot-col a,.foot-col span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:10px;transition:.3s;}
+.foot-col a:hover{color:var(--gold-soft);}
+.foot-bottom{
+margin-top:44px;padding-top:24px;border-top:1px solid var(--line-soft);
+display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+font-size:11px;color:rgba(167,155,192,.5);letter-spacing:.06em;
+}
+ 
+/* Modal */
+.modal{
+position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;
+background:rgba(5,2,10,.72);backdrop-filter:blur(10px);
+opacity:0;visibility:hidden;transition:.4s var(--ease);
+}
+.modal.open{opacity:1;visibility:visible;}
+.modal-panel{
+width:min(440px,100%);background:linear-gradient(170deg,#1B102E,#0E0719);
+border:1px solid rgba(217,185,140,.3);border-radius:4px;
+padding:46px 38px 38px;text-align:center;position:relative;
+transform:translateY(18px) scale(.97);transition:.5s var(--ease);
+box-shadow:0 50px 120px rgba(0,0,0,.6);
+}
+.modal.open .modal-panel{transform:none;}
+.modal-panel .m-ico{
+width:62px;height:62px;margin:0 auto 24px;border-radius:50%;
+border:1px solid rgba(217,185,140,.45);display:grid;place-items:center;
+color:var(--gold);font-size:24px;background:rgba(217,185,140,.07);
+}
+.modal-panel h3{font-family:var(--serif);font-size:26px;font-weight:400;margin:0 0 12px;}
+.modal-panel p{font-size:13px;color:var(--muted);line-height:1.95;margin:0 0 26px;}
+.m-detail{
+border:1px solid var(--line-soft);border-radius:3px;text-align:left;
+padding:8px 18px;margin-bottom:28px;background:rgba(255,255,255,.02);
+}
+.m-detail div{display:flex;justify-content:space-between;gap:20px;padding:10px 0;font-size:12.5px;border-bottom:1px solid var(--line-soft);}
+.m-detail div:last-child{border-bottom:0;}
+.m-detail span{color:var(--muted);letter-spacing:.06em;}
+.m-detail b{font-weight:400;color:var(--gold-soft);}
+.modal-close{
+margin-top:2px;padding:13px 40px;border:1px solid var(--line);background:transparent;
+border-radius:2px;font-size:12px;letter-spacing:.18em;color:var(--gold-soft);transition:.3s;
+}
+.modal-close:hover{background:rgba(217,185,140,.1);border-color:rgba(217,185,140,.5);}
+ 
+/* Reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 1s var(--ease),transform 1s var(--ease);}
+.reveal.in{opacity:1;transform:none;}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+ 
+/* ---------- Responsive ---------- */
+@media (max-width:980px){
+.hero .wrap{grid-template-columns:1fr;gap:26px;}
+.hero-visual{height:430px;order:2;}
+.hero-stats{margin-top:44px;}
+.about-grid{grid-template-columns:1fr;gap:60px;}
+.about-photo{max-width:440px;}
+.svc-grid,.rev-grid{grid-template-columns:1fr;}
+.daily .wrap{grid-template-columns:1fr;gap:56px;}
+.daily-stage{order:2;min-height:400px;}
+.booking-body{grid-template-columns:1fr;}
+.booking-left{border-right:0;border-bottom:1px solid var(--line-soft);}
+}
+@media (max-width:720px){
+.wrap{width:calc(100% - 36px);}
+section{padding:84px 0;}
+.nav{padding:16px 18px;}
+.nav-links{
+position:fixed;inset:0 0 auto 0;top:0;padding:110px 30px 40px;
+flex-direction:column;align-items:flex-start;gap:26px;
+background:rgba(9,5,17,.97);backdrop-filter:blur(20px);
+transform:translateY(-104%);transition:.45s var(--ease);
+font-size:19px;font-family:var(--serif);letter-spacing:.08em;
+height:100vh;
+}
+.nav-links.open{transform:none;}
+.burger{display:block;z-index:2;}
+.nav-cta{display:none;}
+.hero{padding-top:130px;min-height:auto;}
+.hero-visual{height:380px;}
+.deck{width:200px;height:330px;transform:scale(.92);}
+.tcard:nth-child(1){transform:translateX(-56px) rotate(-13deg) scale(.94);}
+.tcard:nth-child(3){transform:translateX(56px) rotate(12deg) scale(.94);}
+.hero-stats{gap:22px;flex-wrap:wrap;}
+.hero-stats div b{font-size:24px;}
+.booking-top{padding:26px 22px;}
+.booking-left,.booking-right{padding:28px 22px;}
+.slot-grid{grid-template-columns:repeat(3,1fr);}
+.date-chip{flex-basis:74px;}
+.about-photo .frame{inset:14px -14px -14px 14px;}
+.about-photo .photo-tag{right:0;bottom:18px;padding:12px 16px;}
+.gallery-grid{grid-template-columns:1fr;}
+.gallery-item img{aspect-ratio:4/3.8;}
+.foot-links{gap:36px;}
+}
+@media (prefers-reduced-motion:reduce){
+*,*::before,*::after{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important;}
+html{scroll-behavior:auto;}
+.reveal{opacity:1;transform:none;}
+}
+</style>
+</head>
+<body id="top">
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+ 
+<header class="nav" id="nav">
+<a class="brand" href="#top">
+<span class="brand-mark"><svg class="i-star" width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l3.1 7.4 7.4 3.1-7.4 3.1L12 22.5l-3.1-7.4L1.5 12l7.4-3.1z"/></svg></span>
+<span><b>月相塔罗</b><br><span>Lunar Phase Tarot</span></span>
+</a>
+<nav class="nav-links" id="navLinks" aria-label="主导航">
+<a href="#about">关于我</a>
+<a href="#services">解读服务</a>
+<a href="#daily">每日一牌</a>
+<a href="#booking">预约时段</a>
+<a href="#reviews">客户反馈</a>
+</nav>
+<div class="nav-right">
+<a class="btn btn-ghost nav-cta" href="#booking">立即预约</a>
+<button class="burger" id="burger" aria-label="打开菜单" aria-expanded="false"><i></i><i></i></button>
+</div>
+</header>
+ 
+<main>
+<!-- Hero -->
+<section class="hero" aria-label="首页">
+<div class="wrap">
+<div class="hero-copy">
+<div class="eyebrow"><span class="star"><svg class="i-star" width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l3.1 7.4 7.4 3.1-7.4 3.1L12 22.5l-3.1-7.4L1.5 12l7.4-3.1z"/></svg></span> Lunar Phase Tarot · 线上与线下</div>
+<h1>在牌面之间，<br>听见你<em>内心的答案</em></h1>
+<p class="lead">我是 火火，塔罗解读师。我不替你做决定，而是陪你把混沌的思绪摊开，看清真正困住你的那件事——然后把选择权，交还给你。</p>
+<div class="hero-actions">
+<a class="btn btn-gold" href="#booking">预约一次解读</a>
+<a class="btn btn-ghost" href="#about">了解我的方式</a>
+</div>
+<div class="hero-stats">
+<div><b>５ 年</b><span>执业经验</span></div>
+<div><b>3000+</b><span>一对一解读</span></div>
+<div><b>98%</b><span>客户好评</span></div>
+</div>
+</div>
+<div class="hero-visual" aria-hidden="true">
+<div class="halo"></div>
+<div class="deck" id="deck">
+<div class="tcard"><div class="sym">
+<svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<small>THE MOON</small></div></div>
+<div class="tcard"><div class="sym">
+<svg width="52" height="52" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5l3.1 7.4 7.4 3.1-7.4 3.1L12 22.5l-3.1-7.4L1.5 12l7.4-3.1z"/></svg>
+<small>THE STAR</small></div></div>
+<div class="tcard"><div class="sym">
+<svg width="52" height="52" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.6" fill="currentColor"/><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 1.5v2.2M12 20.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M1.5 12h2.2M20.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></g></svg>
+<small>THE SUN</small></div></div>
+</div>
+<div class="deck-caption">PAST · PRESENT · POSSIBILITY</div>
+</div>
+</div>
+</section>
+ 
+<!-- About -->
+<section id="about">
+<div class="wrap about-grid">
+<div class="about-photo reveal">
+<div class="frame"></div>
+<img
+src="assets/about-tarot-digital.jpg"
+alt="紫色丝绒上的塔罗牌与烛光" loading="lazy" />
+<div class="photo-tag">火火<small>塔罗解读师 · 五年</small></div>
+</div>
+<div class="about-text">
+<div class="sec-head reveal" style="margin-bottom:34px;">
+<div class="sec-label">About Me</div>
+<h2>关于我</h2>
+</div>
+<p class="reveal d1">
+我在人生的低谷里第一次真正读懂了塔罗——它不是预言，而是一面诚实的镜子。</p>
+<p class="reveal d2">此后我系统学习韦特塔罗体系与荣格心理学，累计完成三千余次一对一解读，服务过来自二十多个城市的客户。<strong>我擅长把牌面的象征，翻译成你当下能用的、具体的语言。</strong></p>
+<p class="reveal d3">我的风格是：不恐吓、不贩卖焦虑、不承诺奇迹。只与你一起，把模糊的感受说清楚，把下一步走稳。</p>
+<div class="tags reveal d3">
+<span>韦特塔罗</span><span>荣格原型</span><span>亲密关系</span><span>职业发展</span><span>情绪梳理</span>
+</div>
+<div class="signature reveal d3">火火<small>FOUNDER · Lunar Phase Tarot</small></div>
+</div>
+</div>
+</section>
+ 
+<!-- Photo gallery -->
+<section id="gallery" class="gallery">
+<div class="wrap">
+<div class="sec-head reveal">
+<div class="sec-label">Reading Space</div>
+<h2>工作与解读日常</h2>
+<p>从洗牌、牌阵到文字纪要，每一次解读都在安静、专注且不被打扰的空间里完成。</p>
+</div>
+<div class="gallery-grid">
+<figure class="gallery-item reveal">
+<img src="assets/reading-shuffle-digital.jpg" alt="塔罗师在紫色丝绒桌布上洗牌" loading="lazy" />
+<figcaption><span>01 · Shuffle</span>解读之前，静心洗牌，也把问题慢慢理清。</figcaption>
+</figure>
+<figure class="gallery-item reveal d1">
+<img src="assets/reading-notes-digital.jpg" alt="摆放着塔罗牌、笔记本与紫水晶的解读桌面" loading="lazy" />
+<figcaption><span>02 · Notes</span>每次解读后整理文字纪要，方便你随时回看。</figcaption>
+</figure>
+<figure class="gallery-item reveal d2">
+<img src="assets/reading-spread-digital.jpg" alt="紫色桌布上的凯尔特十字塔罗牌阵" loading="lazy" />
+<figcaption><span>03 · Spread</span>根据你的问题选择牌阵，而不是套用统一答案。</figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<!-- Services -->
+<section id="services" class="services">
+<div class="wrap">
+<div class="sec-head center reveal">
+<div class="sec-label">Readings</div>
+<h2>解读服务</h2>
+<p>所有解读均为一对一，支持视频或语音进行。请选择一个最贴近你当下处境的入口。</p>
+</div>
+<div class="svc-grid">
+<article class="svc reveal">
+<div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+<h3>关系解读</h3>
+<div class="dur">68 分钟 · 视频 / 语音</div>
+<p>梳理感情、亲密关系与人际边界。看清对方的真实态度，也看清自己反复陷入的模式。</p>
+<ul>
+<li>暧昧期与关系走向判断</li>
+<li>关系瓶颈与沟通方式建议</li>
+<li>分手后的情绪与自我重建</li>
+</ul>
+<div class="price"><b><i>¥</i>88</b><span>含文字解读纪要</span></div>
+</article>
+<article class="svc reveal d1">
+<div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5l9.5 9.5-9.5 9.5L2.5 12z"/><path d="M12 2.5v19M2.5 12h19" opacity=".35"/></svg></div>
+<h3>事业与选择</h3>
+<div class="dur">68 分钟 · 视频 / 语音</div>
+<p>面对职业转向、项目取舍与阶段性迷茫时，用牌面把风险与机会并排摊开。</p>
+<ul>
+<li>Offer 与赛道的横向对比</li>
+<li>创业、转岗的时机评估</li>
+<li>与上级、合作方的相处策略</li>
+</ul>
+<div class="price"><b><i>¥</i>88</b><span>含文字解读纪要</span></div>
+</article>
+<article class="svc reveal d2">
+<div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5l3.1 7.4 7.4 3.1-7.4 3.1L12 22.5l-3.1-7.4L1.5 12l7.4-3.1z"/></svg></div>
+<h3>综合深度解读</h3>
+<div class="dur">98 分钟 · 视频 / 语音</div>
+<p>以三牌阵与凯尔特十字展开，覆盖当下状态、核心阻碍与可选择的下一步。</p>
+<ul>
+<li>人生转折点与年度复盘</li>
+<li>多议题交叉的深度梳理</li>
+<li>专属牌阵图与行动清单</li>
+</ul>
+<div class="price"><b><i>¥</i>198</b><span>含完整图文报告</span></div>
+</article>
+</div>
+</div>
+</section>
+ 
+<!-- Daily card -->
+<section id="daily" class="daily">
+<div class="wrap">
+<div class="daily-copy">
+<div class="sec-head reveal" style="margin-bottom:26px;">
+<div class="sec-label">Daily Card</div>
+<h2>每日一牌</h2>
+</div>
+<p class="reveal d1">静心三秒，在心里默念一个此刻困扰你的问题，然后轻轻翻开这张牌。它不会给你答案，但会给你一个重新看问题的角度。</p>
+<div class="daily-hint reveal d2"><svg class="i-star" width="9" height="9" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l3.1 7.4 7.4 3.1-7.4 3.1L12 22.5l-3.1-7.4L1.5 12l7.4-3.1z"/></svg><span id="dailyHint">点击右侧牌背，抽取今日之牌</span></div>
+</div>
+<div class="daily-stage reveal d1">
+<div class="card-stage" id="cardStage" role="button" tabindex="0" aria-label="抽取今日塔罗牌">
+<div class="card-inner">
+<div class="card-face card-back">
+<div class="sigil"><svg width="66" height="66" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5l3.1 7.4 7.4 3.1-7.4 3.1L12 22.5l-3.1-7.4L1.5 12l7.4-3.1z"/></svg></div>
+<div class="hint">TAP TO REVEAL</div>
+</div>
+<div class="card-face card-front" id="cardFront">
+<div class="num" id="cardNum">00</div>
+<h4 id="cardName">愚人</h4>
+<div class="en" id="cardEn">The Fool</div>
+<p id="cardMsg"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+ 
+<!-- Booking -->
+<section id="booking">
+<div class="wrap">
+<div class="sec-head reveal">
+<div class="sec-label">Booking</div>
+<h2>预约你的解读时段</h2>
+<p>请提前 24 小时预约。提交后预约信息将实时进入管理后台，我会与你确认时段并发送会议链接。</p>
+</div>
+<div class="booking-shell reveal d1">
+<div class="booking-top">
+<h3>本期可约时间 <span style="font-size:12px;color:var(--muted);font-family:var(--sans);letter-spacing:.1em;margin-left:8px;">GMT+8</span></h3>
+<div class="steps">
+<span><i>1</i>选择时段</span>
+<span><i>2</i>填写信息</span>
+<span><i>3</i>微信确认</span>
+</div>
+</div>
+<div class="booking-body">
+<div class="booking-left">
+<div class="b-label">选择日期 <span>未来 8 天</span></div>
+<div class="date-strip" id="dateStrip" role="tablist" aria-label="选择预约日期"></div>
+<div class="b-label" style="margin-top:30px;">可选时段 <span id="slotDateLabel">—</span></div>
+<div class="slot-grid" id="slotGrid" role="group" aria-label="选择预约时段"></div>
+<p class="slot-note">单次解读时长 68–98 分钟，时段已含 10 分钟缓冲。</p>
+<div class="selected-line empty" id="selectedLine">尚未选择时段 —— 请先在上方选择日期与时间</div>
+</div>
+<form class="booking-right" id="bookingForm" novalidate>
+<div class="field" id="fieldName">
+<label for="name">称呼 <em>*</em></label>
+<input type="text" id="name" name="name" placeholder="怎么称呼你" autocomplete="name" />
+<div class="err">请填写你的称呼</div>
+</div>
+<div class="field" id="fieldContact">
+<label for="contact">联系方式（微信 / 手机）<em>*</em></label>
+<input type="text" id="contact" name="contact" placeholder="用于确认预约与发送链接" autocomplete="tel" />
+<div class="err">请填写有效的联系方式（至少 5 个字符）</div>
+</div>
+<div class="field" id="fieldTopic">
+<label for="topic">咨询方向</label>
+<select id="topic" name="topic">
+<option value="关系解读">关系解读 · ¥88</option>
+<option value="事业与选择">事业与选择 · ¥88</option>
+<option value="综合深度解读">综合深度解读 · ¥188</option>
+<option value="暂未确定，想先聊聊">暂未确定，想先聊聊</option>
+</select>
+</div>
+<div class="field">
+<label for="question">想聊的问题（选填）</label>
+<textarea id="question" name="question" placeholder="可以简单描述一下当下的处境，方便我提前准备牌阵"></textarea>
+</div>
+<button type="submit" class="btn btn-gold submit-btn">提交预约请求</button>
+<p class="form-note">提交不产生费用，确认时段后再支付。资料仅用于本次解读。</p>
+</form>
+</div>
+</div>
+</div>
+</section>
+ 
+<!-- Reviews -->
+<section id="reviews">
+<div class="wrap">
+<div class="sec-head center reveal">
+<div class="sec-label">Voices</div>
+<h2>客户的反馈</h2>
+<p>以下是经客户授权匿名分享的片段，关于被看见、被理清与被推动。</p>
+</div>
+<div class="rev-grid">
+<article class="rev reveal">
+<div class="stars-line">★★★★★</div>
+<div class="q">“</div>
+<p>她把我一直说不清的那团东西，用几句话摆在了桌面上。没有吓人的结论，只有让我能往前走的方向。</p>
+<div class="who"><div class="avatar">Y</div><div><b>Y.</b><span>互联网产品经理</span></div></div>
+</article>
+<article class="rev reveal d1">
+<div class="stars-line">★★★★★</div>
+<div class="q">“</div>
+<p>预约流程很清爽，解读过程也很有边界感，会一直把选择权留给我。第二次来找她的时候，我已经换了一份更喜欢的工作。</p>
+<div class="who"><div class="avatar">林</div><div><b>林</b><span>品牌设计师</span></div></div>
+</article>
+<article class="rev reveal d2">
+<div class="stars-line">★★★★★</div>
+<div class="q">“</div>
+<p>第一次做塔罗，本来很紧张。火火的语速和节奏让人慢慢放松下来，全程像一次很诚实的对话，而不是被安排好的表演。</p>
+<div class="who"><div class="avatar">C</div><div><b>C.</b><span>在读研究生</span></div></div>
+</article>
+</div>
+</div>
+</section>
+</main>
+ 
+<footer>
+<div class="wrap">
+<div class="foot-top">
+<div class="foot-brand">
+<a class="brand" href="#top">
+<span class="brand-mark"><svg class="i-star" width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l3.1 7.4 7.4 3.1-7.4 3.1L12 22.5l-3.1-7.4L1.5 12l7.4-3.1z"/></svg></span>
+<span><b>月相塔罗</b><br><span>Lunar Phase Tarot</span></span>
+</a>
+<p>把牌面当作一面镜子，而不是一张判决书。愿你在这里，更清楚地看见自己。</p>
+</div>
+<div class="foot-links">
+<div class="foot-col">
+<h5>联系</h5>
+<span>微信：ID-HHHHHH-</span>
+<span>邮箱：3530745706@qq.com</span>
+<span>线上 / 上海 · 静安</span>
+</div>
+<div class="foot-col">
+<h5>服务</h5>
+<a href="#services">解读项目</a>
+<a href="#booking">预约时段</a>
+<a href="#daily">每日一牌</a>
+</div>
+<div class="foot-col">
+<h5>关注</h5>
+<a href="#reviews">客户反馈</a>
+<span>小红书 @女祭司</span>
+<span>抖音＠月相</span>
+</div>
+</div>
+</div>
+<div class="foot-bottom">
+<span>© 2026 月相塔罗 Lunar Phase Tarot. All rights reserved.</span>
+<span>本服务仅供自我探索与娱乐参考，不构成医疗、法律或投资建议。</span>
+</div>
+</div>
+</footer>
+ 
+<!-- Success modal -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<div class="modal-panel">
+<div class="m-ico"><svg class="i-star" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l3.1 7.4 7.4 3.1-7.4 3.1L12 22.5l-3.1-7.4L1.5 12l7.4-3.1z"/></svg></div>
+<h3 id="modalTitle">预约请求已提交</h3>
+<p>我已收到你的预约，会在 12 小时内通过微信与你确认时段与支付方式。</p>
+<div class="m-detail">
+<div><span>时间</span><b id="mTime">—</b></div>
+<div><span>方向</span><b id="mTopic">—</b></div>
+<div><span>称呼</span><b id="mName">—</b></div>
+</div>
+<button class="modal-close" id="modalClose" type="button">知道了</button>
+</div>
+</div>
+ 
+<script src="config.js"></script>
+<script>
+(function () {
+"use strict";
+var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ 
+/* ---------- Nav ---------- */
+var nav = document.getElementById("nav");
+var burger = document.getElementById("burger");
+var navLinks = document.getElementById("navLinks");
+ 
+function onScroll() {
+if (window.scrollY > 30) nav.classList.add("scrolled");
+else nav.classList.remove("scrolled");
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+ 
+burger.addEventListener("click", function () {
+var open = navLinks.classList.toggle("open");
+burger.setAttribute("aria-expanded", open ? "true" : "false");
+burger.setAttribute("aria-label", open ? "关闭菜单" : "打开菜单");
+document.body.style.overflow = open ? "hidden" : "";
+});
+navLinks.addEventListener("click", function (e) {
+if (e.target.tagName === "A") {
+navLinks.classList.remove("open");
+burger.setAttribute("aria-expanded", "false");
+document.body.style.overflow = "";
+}
+});
+ 
+/* ---------- Starfield ---------- */
+var canvas = document.getElementById("stars");
+var ctx = canvas.getContext("2d");
+var stars = [];
+var dpr = Math.min(window.devicePixelRatio || 1, 2);
+var mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+ 
+function buildStars() {
+var w = window.innerWidth, h = window.innerHeight;
+canvas.width = w * dpr;
+canvas.height = h * dpr;
+ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+var count = Math.min(170, Math.round((w * h) / 9000));
+stars = [];
+for (var i = 0; i < count; i++) {
+stars.push({
+x: Math.random() * w,
+y: Math.random() * h,
+r: Math.random() * 1.25 + 0.25,
+a: Math.random() * 0.6 + 0.2,
+tw: Math.random() * Math.PI * 2,
+sp: Math.random() * 0.012 + 0.004,
+depth: Math.random() * 0.6 + 0.2
+});
+}
+}
+ 
+function drawStars() {
+var w = window.innerWidth, h = window.innerHeight;
+ctx.clearRect(0, 0, w, h);
+mouse.x += (mouse.tx - mouse.x) * 0.04;
+mouse.y += (mouse.ty - mouse.y) * 0.04;
+for (var i = 0; i < stars.length; i++) {
+var s = stars[i];
+s.tw += s.sp;
+var alpha = s.a * (0.55 + 0.45 * Math.sin(s.tw));
+var px = s.x + mouse.x * s.depth * 14;
+var py = s.y + mouse.y * s.depth * 14;
+ctx.beginPath();
+ctx.arc(px, py, s.r, 0, Math.PI * 2);
+ctx.fillStyle = "rgba(242,231,210," + alpha.toFixed(3) + ")";
+ctx.fill();
+if (s.r > 1.1) {
+ctx.beginPath();
+ctx.arc(px, py, s.r * 4.2, 0, Math.PI * 2);
+ctx.fillStyle = "rgba(180,150,230," + (alpha * 0.08).toFixed(3) + ")";
+ctx.fill();
+}
+}
+if (!reduceMotion) requestAnimationFrame(drawStars);
+}
+buildStars();
+drawStars();
+window.addEventListener("resize", function () {
+buildStars();
+if (reduceMotion) drawStars();
+});
+window.addEventListener("pointermove", function (e) {
+mouse.tx = (e.clientX / window.innerWidth - 0.5) * 2;
+mouse.ty = (e.clientY / window.innerHeight - 0.5) * 2;
+}, { passive: true });
+ 
+/* ---------- Hero deck tilt ---------- */
+var deck = document.getElementById("deck");
+var heroVisual = deck.parentElement;
+heroVisual.addEventListener("pointermove", function (e) {
+if (reduceMotion) return;
+var rect = heroVisual.getBoundingClientRect();
+var rx = ((e.clientY - rect.top) / rect.height - 0.5) * -9;
+var ry = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
+deck.style.transform = "rotateX(" + rx.toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg)";
+});
+heroVisual.addEventListener("pointerleave", function () {
+deck.style.transform = "";
+});
+ 
+/* ---------- Reveal on scroll ---------- */
+var revealEls = document.querySelectorAll(".reveal");
+if ("IntersectionObserver" in window && !reduceMotion) {
+var io = new IntersectionObserver(function (entries) {
+entries.forEach(function (entry) {
+if (entry.isIntersecting) {
+entry.target.classList.add("in");
+io.unobserve(entry.target);
+}
+});
+}, { threshold: 0.12, rootMargin: "0px 0px -60px 0px" });
+revealEls.forEach(function (el) { io.observe(el); });
+} else {
+revealEls.forEach(function (el) { el.classList.add("in"); });
+}
+ 
+/* ---------- Booking ---------- */
+var WEEK = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+var dateStrip=document.getElementById("dateStrip"),slotGrid=document.getElementById("slotGrid"),slotDateLabel=document.getElementById("slotDateLabel"),selectedLine=document.getElementById("selectedLine");
+var dates=[],selected=null,activeDate=null;
+async function loadAvailability(keep){try{var r=await fetch(window.apiUrl('/api/availability'),{cache:'no-store'});if(!r.ok)throw Error();var d=await r.json();var old=keep&&activeDate?activeDate.key:null;dates=d.days.map(x=>({key:x.date,month:x.month,day:x.day,week:WEEK[x.weekday],slots:x.slots}));renderDates(old);}catch(e){slotGrid.innerHTML='<p class="slot-note">暂时无法读取预约时段，请刷新页面重试。</p>';}}
+function renderDates(old){dateStrip.innerHTML='';dates.forEach(function(item){var b=document.createElement('button');b.type='button';b.className='date-chip';b.setAttribute('role','tab');b.innerHTML='<b>'+item.week+'</b><strong>'+item.day+'</strong><em>'+item.month+' 月</em>';b.addEventListener('click',function(){dateStrip.querySelectorAll('.date-chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');selected=null;activeDate=item;renderSlots(item);updateSelected();});dateStrip.appendChild(b);});activeDate=dates.find(x=>x.key===old)||dates[0]||null;if(activeDate){var i=dates.indexOf(activeDate);dateStrip.children[i].classList.add('active');renderSlots(activeDate);}}
+function renderSlots(item){slotDateLabel.textContent=item.month+' 月 '+item.day+' 日 · '+item.week;slotGrid.innerHTML='';var free=0;item.slots.forEach(function(slot){var b=document.createElement('button');b.type='button';b.className='slot';b.textContent=slot.time;if(!slot.available){b.disabled=true;b.setAttribute('aria-label',slot.time+' 已约满');}else{free++;b.addEventListener('click',function(){slotGrid.querySelectorAll('.slot').forEach(x=>x.classList.remove('active'));b.classList.add('active');selected={key:item.key,time:slot.time,item:item};updateSelected();});}slotGrid.appendChild(b);});if(!free){var p=document.createElement('p');p.className='slot-note';p.style.gridColumn='1 / -1';p.textContent='当日时段已全部约满，请选择其他日期。';slotGrid.appendChild(p);}}
+function updateSelected(){if(!selected){selectedLine.classList.add('empty');selectedLine.textContent='尚未选择时段 —— 请先在上方选择日期与时间';return;}selectedLine.classList.remove('empty');selectedLine.textContent='已选择：'+selected.item.month+' 月 '+selected.item.day+' 日（'+selected.item.week+'）'+selected.time+' · 请填写右侧信息完成预约';}
+loadAvailability(false);var bookingEvents=new EventSource(window.apiUrl('/api/events'));bookingEvents.addEventListener('availability-changed',()=>loadAvailability(true));
+
+/* ---------- Form + modal ---------- */
+var form = document.getElementById("bookingForm");
+var modal = document.getElementById("modal");
+var modalClose = document.getElementById("modalClose");
+var mTime = document.getElementById("mTime");
+var mTopic = document.getElementById("mTopic");
+var mName = document.getElementById("mName");
+var fieldName = document.getElementById("fieldName");
+var fieldContact = document.getElementById("fieldContact");
+ 
+function closeModal() {
+modal.classList.remove("open");
+document.body.style.overflow = "";
+}
+ 
+form.addEventListener("submit", async function(e){e.preventDefault();var name=document.getElementById('name').value.trim(),contact=document.getElementById('contact').value.trim(),topic=document.getElementById('topic').value,question=document.getElementById('question').value.trim(),ok=true;fieldName.classList.toggle('invalid',!name);fieldContact.classList.toggle('invalid',!contact||contact.length<5);if(!name||!contact||contact.length<5)ok=false;if(!ok){(name?document.getElementById('contact'):document.getElementById('name')).focus();return;}if(!selected){selectedLine.classList.remove('empty');selectedLine.textContent='请先在上方选择一个可预约的日期与时段';return;}var submit=form.querySelector('button[type="submit"]');submit.disabled=true;submit.textContent='正在提交…';try{var r=await fetch(window.apiUrl('/api/bookings'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,contact,topic,question,date:selected.key,time:selected.time})});var d=await r.json();if(!r.ok)throw Error(d.error||'提交失败');mTime.textContent=selected.item.month+' 月 '+selected.item.day+' 日（'+selected.item.week+'）'+selected.time;mTopic.textContent=topic;mName.textContent=name;document.getElementById('modalTitle').textContent='预约请求已提交';modal.querySelector('.modal-panel > p').textContent='预约编号：#'+d.bookingId+'。预约信息已保存，稍后将与你确认时段。';modal.classList.add('open');document.body.style.overflow='hidden';form.reset();selected=null;updateSelected();await loadAvailability(true);}catch(err){alert(err.message);await loadAvailability(true);}finally{submit.disabled=false;submit.textContent='提交预约请求';}});
+
+["name", "contact"].forEach(function (id) {
+document.getElementById(id).addEventListener("input", function () {
+this.closest(".field").classList.remove("invalid");
+});
+});
+ 
+modalClose.addEventListener("click", closeModal);
+modal.addEventListener("click", function (e) {
+if (e.target === modal) closeModal();
+});
+document.addEventListener("keydown", function (e) {
+if (e.key === "Escape") closeModal();
+});
+ 
+/* ---------- Daily card ---------- */
+var DECK = [
+{ n: "00", name: "愚人", en: "The Fool", msg: "新的旅程正在门口等你。不必准备万全，先迈出的一步，本身就是答案。" },
+{ n: "I", name: "魔术师", en: "The Magician", msg: "你手上的资源比你以为的更多。把想法落成具体动作，机会才会回应你。" },
+{ n: "II", name: "女祭司", en: "The High Priestess", msg: "答案不在外面。安静下来，你早已知道那件一直回避的事。" },
+{ n: "VI", name: "恋人", en: "The Lovers", msg: "关于连结与取舍。诚实面对自己真正想要的，比维持表面的和谐更重要。" },
+{ n: "VIII", name: "力量", en: "Strength", msg: "真正的力量是温柔的坚持。不必硬撑，也不必对谁证明。" },
+{ n: "IX", name: "隐士", en: "The Hermit", msg: "退后一步，独处不是逃避。把灯举高一点，先照见自己。" },
+{ n: "X", name: "命运之轮", en: "Wheel of Fortune", msg: "周期正在转动。顺势而为，别把暂时的低谷当成结局。" },
+{ n: "XIV", name: "节制", en: "Temperance", msg: "与其急着做决定，不如先找到节奏。平衡不是静止，是持续微调。" },
+{ n: "XVII", name: "星星", en: "The Star", msg: "疗愈正在发生。你可以慢慢来，希望不需要立刻被证明。" },
+{ n: "XVIII", name: "月亮", en: "The Moon", msg: "迷雾之中，直觉比逻辑更可靠。别急着下结论，先允许不清晰存在。" },
+{ n: "XIX", name: "太阳", en: "The Sun", msg: "被压抑的光正想出来。允许自己快乐，也允许自己被看见。" },
+{ n: "XX", name: "审判", en: "Judgement", msg: "一次内在的觉醒。是时候回应那个反复出现、却一直在拖延的召唤了。" }
+];
+var stage = document.getElementById("cardStage");
+var cardNum = document.getElementById("cardNum");
+var cardName = document.getElementById("cardName");
+var cardEn = document.getElementById("cardEn");
+var cardMsg = document.getElementById("cardMsg");
+var dailyHint = document.getElementById("dailyHint");
+var lastIdx = -1;
+ 
+function drawCard() {
+if (stage.classList.contains("flipped")) {
+// reset for another draw
+stage.classList.remove("flipped");
+dailyHint.textContent = "静心片刻，再翻开一张";
+setTimeout(drawCard, reduceMotion ? 30 : 620);
+return;
+}
+var idx = Math.floor(Math.random() * DECK.length);
+if (idx === lastIdx) idx = (idx + 1) % DECK.length;
+lastIdx = idx;
+var c = DECK[idx];
+cardNum.textContent = c.n;
+cardName.textContent = c.name;
+cardEn.textContent = c.en;
+cardMsg.textContent = c.msg;
+stage.classList.add("flipped");
+dailyHint.textContent = "再点击一次牌面，可以重新抽取";
+}
+ 
+stage.addEventListener("click", drawCard);
+stage.addEventListener("keydown", function (e) {
+if (e.key === "Enter" || e.key === " ") {
+e.preventDefault();
+drawCard();
+}
+});
+})();
+</script>
+</body>
+</html>
