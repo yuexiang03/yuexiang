@@ -7,7 +7,20 @@ db.exec(`CREATE TABLE IF NOT EXISTS bookings(id INTEGER PRIMARY KEY AUTOINCREMEN
 app.use(helmet({contentSecurityPolicy:false}));
 const allowedOrigins=(process.env.FRONTEND_ORIGIN||'').split(',').map(x=>x.trim()).filter(Boolean);
 app.use((req,res,next)=>{const origin=req.headers.origin;if(origin&&allowedOrigins.includes(origin)){res.setHeader('Access-Control-Allow-Origin',origin);res.setHeader('Vary','Origin');res.setHeader('Access-Control-Allow-Methods','GET,POST,PATCH,OPTIONS');res.setHeader('Access-Control-Allow-Headers','Content-Type,Authorization');}if(req.method==='OPTIONS')return res.sendStatus(204);next();});
-app.use(express.json({limit:'20kb'}));app.use(express.static(path.join(__dirname,'public')));
+app.use(express.json({limit:'20kb'}));
+app.get('/',(req,res)=>{
+  res.sendFile(path.join(__dirname,'index.html'));
+});
+app.get('/index.html',(req,res)=>{
+  res.sendFile(path.join(__dirname,'index.html'));
+});
+app.get('/admin.html',(req,res)=>{
+  res.sendFile(path.join(__dirname,'admin.html'));
+});
+app.get('/config.js',(req,res)=>{
+  res.sendFile(path.join(__dirname,'config.js'));
+});
+app.use('/资产',express.static(path.join(__dirname,'资产')));
 const limit=rateLimit({windowMs:15*60*1000,limit:8,standardHeaders:true,legacyHeaders:false}),sessions=new Map(),clients=new Set(),SLOTS=['20:00','21:00','22:00','23:00','00:00','01:00','02:00','03:00'];
 const pad=n=>String(n).padStart(2,'0'),key=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 function available(){let out=[],now=new Date();for(let i=1;i<=8;i++){let d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i),date=key(d),taken=new Set(db.prepare("SELECT time FROM bookings WHERE date=? AND status!='cancelled'").all(date).map(x=>x.time));out.push({date,year:d.getFullYear(),month:d.getMonth()+1,day:d.getDate(),weekday:d.getDay(),slots:SLOTS.map(time=>({time,available:!taken.has(time)&&new Date(date+'T'+time+':00+08:00')>now}))});}return out;}
