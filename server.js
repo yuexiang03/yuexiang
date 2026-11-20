@@ -23,7 +23,38 @@ app.get('/config.js',(req,res)=>{
 app.use('/资产',express.static(path.join(__dirname,'资产')));
 const limit=rateLimit({windowMs:15*60*1000,limit:8,standardHeaders:true,legacyHeaders:false}),sessions=new Map(),clients=new Set(),SLOTS=['20:00','21:00','22:00','23:00','00:00','01:00','02:00','03:00'];
 const pad=n=>String(n).padStart(2,'0'),key=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-function available(){let out=[],now=new Date();for(let i=1;i<=8;i++){let d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i),date=key(d),taken=new Set(db.prepare("SELECT time FROM bookings WHERE date=? AND status!='cancelled'").all(date).map(x=>x.time));out.push({date,year:d.getFullYear(),month:d.getMonth()+1,day:d.getDate(),weekday:d.getDay(),slots:SLOTS.map(time=>({time,available:!taken.has(time)&&new Date(date+'T'+time+':00+08:00')>now}))});}return out;}
+function available(){
+    let out = [];
+    let now = new Date();
+    
+    // 获取今天是周几 (0是周日，1-6是周一到周六)
+    let currentDay = now.getDay();
+    // 算出本周一是几天前
+    let distanceToMonday = currentDay === 0 ? 6 : currentDay - 1;
+    // 获取本周一的日期
+    let monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - distanceToMonday);
+
+    // 循环 7 次，依次是周一、周二...周日
+    for(let i = 0; i < 7; i++){
+        let d = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i);
+        let date = key(d);
+        let taken = new Set(db.prepare("SELECT time FROM bookings WHERE date=? AND status!='cancelled'").all(date).map(x=>x.time));
+        
+        out.push({
+            date,
+            year: d.getFullYear(),
+            month: d.getMonth() + 1,
+            day: d.getDate(),
+            weekday: d.getDay(),
+            slots: SLOTS.map(time => ({
+                time,
+                // 核心判断：如果这个时间已经过了，或者已经被预约了，就不可用
+                available: !taken.has(time) && new Date(date + 'T' + time + ':00+08:00') > now
+            }))
+        });
+    }
+    return out;
+}
 function emit(event,data){let s=`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;clients.forEach(c=>c.write(s));}
 function admin(req,res,next){let t=(req.headers.authorization||'').replace(/^Bearer\s+/i,'');let s=sessions.get(t);if(!s||s<Date.now()){sessions.delete(t);return res.status(401).json({error:'管理员登录已过期'});}next();}
 app.get('/api/health',(q,s)=>s.json({ok:true}));app.get('/api/availability',(q,s)=>s.json({days:available(),timezone:'Asia/Shanghai'}));
